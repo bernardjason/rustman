@@ -1,0 +1,42 @@
+[package]
+name = "rustman"
+version = "0.1.0"
+authors = ["bernardcjason@gmail.com <bernardcjason@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+#[dependencies.sdl2]
+#version = "0.34.0"
+#default-features = false
+#features = [ "gfx" , "image" , "ttf"   ]
+
+[dependencies.sdl2]
+version = "0.34"
+default-features = false
+features = ["image","gfx" , "ttf" , "static-link","bundled" ]
+
+
+# sudo apt-get install libsdl2-gfx-dev libsdl2-image-dev libsdl2-ttf-dev
+# rustup target add x86_64-pc-windows-gnu
+# rustup toolchain install stable-x86_64-pc-windows-gnu
+# export PKG_CONFIG_ALLOW_CROSS=1
+# cargo build --target x86_64-pc-windows-gnu
+#cargo install cargo-vcpkg
+#cargo vcpkg build
+#cargo vcpkg build
+
+
+[dependencies]
+pretty_env_logger = "0.4"
+log ="0.4"
+rng = "0.1.0"
+rand = "0.6.0"
+#sdl2-sys = "0.34.0"
+gio = "0.8"
+lazy_static = "1.4.0"
+
+#sdl2 = "0.34.0"
+#chrono = "0.4"
+#cairo-rs = "0.8"
+#glib = "0.9"
+#gtk = "0.8"
