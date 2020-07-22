@@ -60,7 +60,14 @@ pub static CHOMP: usize = 0;
 pub static DEAD: usize = 1;
 pub static GOTGHOST: usize = 4;
 
+#[cfg(feature = "soundoff")]
+pub fn load_sound(sdl_context: &Sdl) { }
+#[cfg(feature = "soundoff")]
+pub fn play(id: usize) { }
+#[cfg(feature = "soundoff")]
+pub fn pause_any_finished_sounds() { }
 
+#[cfg(not(feature = "soundoff"))]
 pub fn load_sound(sdl_context: &Sdl) {
     unsafe {
         PLAYING_MAP = Some(HashMap::new());
@@ -71,6 +78,7 @@ pub fn load_sound(sdl_context: &Sdl) {
     }
 }
 
+#[cfg(not(feature = "soundoff"))]
 pub fn play(id: usize) {
     unsafe {
         PLAYING_MAP.as_mut().unwrap().insert(id, Playing::Playing);
@@ -79,6 +87,7 @@ pub fn play(id: usize) {
     }
 }
 
+#[cfg(not(feature = "soundoff"))]
 pub fn pause_any_finished_sounds() {
     unsafe {
         for (k, v) in PLAYING_MAP.as_ref().unwrap().iter() {
@@ -92,16 +101,6 @@ pub fn pause_any_finished_sounds() {
         }
     }
 }
-/*
-pub fn pause(id: usize) {
-    unsafe {
-        match PLAYING_MAP.as_mut().unwrap().get(&id).unwrap() {
-            Playing::Ended => SOUNDS_MAP.as_mut().unwrap().get(&id).as_ref().unwrap().pause(),
-            _ => {}
-        }
-    }
-}
- */
 
 fn load_in_file(sdl_context: &Sdl, file_name: &'static str, id: usize, offend: usize) -> AudioDevice<Sound> {
     unsafe {
@@ -149,5 +148,4 @@ fn load_in_file(sdl_context: &Sdl, file_name: &'static str, id: usize, offend: u
     }).unwrap();
     device
 }
-
 
