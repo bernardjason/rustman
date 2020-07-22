@@ -37,5 +37,12 @@ cd target/debug
 zip rustman_linux.zip rustman artifacts
 ```
 
+To run release download either
+https://github.com/bernardjason/rustman/releases/download/0.1.0/rustman_linux.zip
+
+or
+
+https://github.com/bernardjason/rustman/releases/download/0.1.0/rustman_windows.zip
+
 ##### TO DO still maybe..
 do something when lives ended.
