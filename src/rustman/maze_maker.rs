@@ -24,7 +24,8 @@ pub fn xy_to_cell(x:i32,y:i32) -> (i32,i32) {
     return(cx,cy);
 }
 
-pub fn create_maze_texture<'a>(creator: &'a TextureCreator<WindowContext>,maze:&Vec<Vec<char>>) -> Texture<'a> {
+pub fn create_maze_texture<'a>(creator: &'a TextureCreator<WindowContext>, maze:&Vec<Vec<char>>) -> (Texture<'a>,i32 ) {
+    let mut count_pills = 0;
     let mut texture: Texture =
         creator.create_texture_streaming(PixelFormatEnum::RGB24, MAZE_WIDTH as u32, (MAZE_HEIGHT + 1) as u32).expect("texture");
     texture.with_lock(None, |buffer: &mut [u8], pitch: usize| {
@@ -37,13 +38,14 @@ pub fn create_maze_texture<'a>(creator: &'a TextureCreator<WindowContext>,maze:&
                     draw_pill_on_texture(buffer, pitch, y, x,Color::RED);
                 } else if c == '*' {
                     draw_pill_on_texture(buffer, pitch, y, x,Color::YELLOW);
+                    count_pills = count_pills +1;
                 } else if c == '!' {
                     draw_wall_on_texture(buffer, pitch, y, x,Color::RGBA(133, 50, 168, 255));
                 }
             }
         }
     }).unwrap();
-    return texture;
+    return (texture,count_pills);
 }
 pub fn update_texture<'a>(texture: &mut Texture,x:i32,y:i32) { //} -> &'a Texture<'a> {
     let erase = Rect::new(x,y + BORDER as i32,(SQUARE_SIZE - BORDER) as u32,(SQUARE_SIZE - BORDER) as u32);
@@ -81,6 +83,7 @@ fn draw_pill_on_texture(buffer: &mut [u8], pitch: usize, y: usize, x: usize,colo
         }
     }
 }
+
 
 pub fn read_in_maze() -> Vec<Vec<char>> {
     //let mut maze = [['0'; MAZE_X]; MAZE_Y];
