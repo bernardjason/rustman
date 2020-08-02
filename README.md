@@ -4,6 +4,7 @@ first rust program. A pacman clone
 
 on linux to target windows
 ```
+export PKG_CONFIG_ALLOW_CROSS=1
 cargo build --target x86_64-pc-windows-gnu
 ```
 
@@ -28,13 +29,13 @@ any dlls
 
 ```
 cd target/x86_64-pc-windows-gnu/debug
-zip rustman_windows.zip rustman.exe artifacts *dll
+zip rustman_windows.zip rustman.exe artifacts/* *dll
 ```
 
 or
 ```
 cd target/debug
-zip rustman_linux.zip rustman artifacts
+zip rustman_linux.zip rustman artifacts/*
 ```
 
 To run release download either
